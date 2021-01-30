@@ -34,7 +34,7 @@ class GradControllerTest {
         GeografijaDAO dao = GeografijaDAO.getInstance();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/grad.fxml"));
-        ctrl = new GradController(null, dao.drzave());
+        ctrl = new GradController(null, dao.drzave(), dao.gradovi());
         loader.setController(ctrl);
         Parent root = loader.load();
         stage.setTitle("Grad");

@@ -1,12 +1,12 @@
 package ba.unsa.etf.rpr;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class GeografijaDAOTest {
 
@@ -60,7 +60,7 @@ class GeografijaDAOTest {
         assertEquals(3, gradovi.size());
         assertEquals("London", gradovi.get(0).getNaziv());
         assertEquals("Pariz", gradovi.get(1).getNaziv());
-        assertEquals("Manchester", gradovi.get(2).getNaziv());
+        assertEquals("Mančester", gradovi.get(2).getNaziv());
     }
 
     @Test

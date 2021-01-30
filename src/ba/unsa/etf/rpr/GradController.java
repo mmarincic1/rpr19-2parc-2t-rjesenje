@@ -2,9 +2,11 @@ package ba.unsa.etf.rpr;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -14,17 +16,25 @@ public class GradController {
     public TextField fieldNaziv;
     public TextField fieldBrojStanovnika;
     public ChoiceBox<Drzava> choiceDrzava;
+    public ChoiceBox<Grad> choiceGrad;
+    public ListView<Grad> listViewPobratimi;
     public ObservableList<Drzava> listDrzave;
+    public ArrayList<Grad> listBraca = new ArrayList<>();
+    public ObservableList<Grad> listBracaIzbor;
     private Grad grad;
 
-    public GradController(Grad grad, ArrayList<Drzava> drzave) {
+    public GradController(Grad grad, ArrayList<Drzava> drzave, ArrayList<Grad> gradovi) {
         this.grad = grad;
+        if(grad != null) listBraca = grad.getPobratimi();
         listDrzave = FXCollections.observableArrayList(drzave);
+        listBracaIzbor = FXCollections.observableArrayList(gradovi);
     }
 
     @FXML
     public void initialize() {
         choiceDrzava.setItems(listDrzave);
+        choiceGrad.setItems(listBracaIzbor);
+        listViewPobratimi.setItems(FXCollections.observableList(listBraca));
         if (grad != null) {
             fieldNaziv.setText(grad.getNaziv());
             fieldBrojStanovnika.setText(Integer.toString(grad.getBrojStanovnika()));
@@ -82,7 +92,28 @@ public class GradController {
         grad.setNaziv(fieldNaziv.getText());
         grad.setBrojStanovnika(Integer.parseInt(fieldBrojStanovnika.getText()));
         grad.setDrzava(choiceDrzava.getValue());
+        grad.setPobratimi(listBraca);
+        //listBraca.stream().forEach(System.out::println);
         Stage stage = (Stage) fieldNaziv.getScene().getWindow();
         stage.close();
+    }
+
+    public void dodajBrataAction(ActionEvent actionEvent){
+        // dodaj ga na listu
+        if(listBraca == null){
+            ArrayList<Grad> pom = new ArrayList<>();
+            listBraca = pom;
+        }
+        if(grad != null && choiceGrad.getSelectionModel().getSelectedItem().getId() == grad.getId()) return;
+
+        for(Grad g : listBraca){
+            if(g.getId() == choiceGrad.getSelectionModel().getSelectedItem().getId())
+                return;
+        }
+
+        if(!listBraca.contains(choiceGrad.getSelectionModel().getSelectedItem())){
+            listBraca.add(choiceGrad.getSelectionModel().getSelectedItem());
+            listViewPobratimi.setItems(FXCollections.observableList(listBraca));
+        }
     }
 }

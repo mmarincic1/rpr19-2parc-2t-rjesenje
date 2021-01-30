@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -50,7 +51,7 @@ public class GlavnaController {
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/grad.fxml"));
-            GradController gradController = new GradController(null, dao.drzave());
+            GradController gradController = new GradController(null, dao.drzave(), dao.gradovi());
             loader.setController(gradController);
             root = loader.load();
             stage.setTitle("Grad");
@@ -104,7 +105,7 @@ public class GlavnaController {
         Parent root = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/grad.fxml"));
-            GradController gradController = new GradController(grad, dao.drzave());
+            GradController gradController = new GradController(grad, dao.drzave(), dao.gradovi());
             loader.setController(gradController);
             root = loader.load();
             stage.setTitle("Grad");
@@ -136,6 +137,7 @@ public class GlavnaController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
+            //System.out.println(grad.getPobratimi().size());
             dao.obrisiGrad(grad);
             listGradovi.setAll(dao.gradovi());
         }

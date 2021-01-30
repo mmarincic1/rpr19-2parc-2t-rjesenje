@@ -5,16 +5,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
-
-import java.io.File;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,7 +46,7 @@ class GlavnaControllerTest {
     @Test
     public void testObrisiGrad(FxRobot robot) {
         ctrl.resetujBazu();
-        robot.clickOn("Manchester");
+        robot.clickOn("Mančester");
         robot.clickOn("#btnObrisiGrad");
 
         // Čekamo da dijalog postane vidljiv
@@ -106,7 +102,7 @@ class GlavnaControllerTest {
         ctrl.resetujBazu();
 
         // Ovaj test samo provjerava da li se otvara forma za dodavanje grada
-        robot.clickOn("Graz");
+        robot.clickOn("Grac");
         robot.clickOn("#btnIzmijeniGrad");
 
         // Čekamo da dijalog postane vidljiv
@@ -115,7 +111,7 @@ class GlavnaControllerTest {
         // Da li polje Naziv sadrži ispravno ime grada?
         TextField fieldNaziv = robot.lookup("#fieldNaziv").queryAs(TextField.class);
         assertNotNull(fieldNaziv);
-        assertEquals("Graz", fieldNaziv.getText());
+        assertEquals("Grac", fieldNaziv.getText());
 
         // Da li polje broj stanovnika sadrži ispravan broj stanovnika
         TextField fieldBrojStanovnika = robot.lookup("#fieldBrojStanovnika").queryAs(TextField.class);
@@ -131,7 +127,7 @@ class GlavnaControllerTest {
 
         // Da li je promijenjen broj stanovnika Graza?
         GeografijaDAO dao = GeografijaDAO.getInstance();
-        Grad graz = dao.nadjiGrad("Graz");
+        Grad graz = dao.nadjiGrad("Grac");
         assertEquals(123456, graz.getBrojStanovnika());
     }
 
